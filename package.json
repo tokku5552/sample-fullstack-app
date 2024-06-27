@@ -12,7 +12,15 @@
     ]
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "run-p -c -l build:*",
+    "build:backend": "yarn workspace backend build",
+    "build:frontend": "yarn workspace frontend build",
+    "lint": "run-p -c -l lint:*",
+    "lint:backend": "yarn workspace backend lint",
+    "lint:frontend": "yarn workspace frontend lint",
+    "test": "run-p -c -l test:*",
+    "test:backend": "yarn workspace backend test",
+    "test:frontend": "yarn workspace frontend test"
   },
   "license": "MIT",
   "devDependencies": {
