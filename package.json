@@ -1,0 +1,25 @@
+{
+  "name": "sample-fullstack-app",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "backend",
+      "frontend"
+    ],
+    "nohoist": [
+      "**"
+    ]
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "npm-run-all2": "5.0.2",
+    "eslint": "8.57.0",
+    "prettier": "3.3.2",
+    "rimraf": "5.0.7",
+    "vitest": "0.34.6"
+  }
+}
