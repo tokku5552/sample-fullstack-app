@@ -1,0 +1,33 @@
+{
+  "name": "sample-fullstack-app",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "backend",
+      "frontend"
+    ],
+    "nohoist": [
+      "**"
+    ]
+  },
+  "scripts": {
+    "build": "run-p -c -l build:*",
+    "build:backend": "yarn workspace backend build",
+    "build:frontend": "yarn workspace frontend build",
+    "lint": "run-p -c -l lint:*",
+    "lint:backend": "yarn workspace backend lint",
+    "lint:frontend": "yarn workspace frontend lint",
+    "test": "run-p -c -l test:*",
+    "test:backend": "yarn workspace backend test",
+    "test:frontend": "yarn workspace frontend test"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "npm-run-all2": "5.0.2",
+    "eslint": "8.57.0",
+    "prettier": "3.3.2",
+    "rimraf": "5.0.7",
+    "vitest": "0.34.6"
+  }
+}

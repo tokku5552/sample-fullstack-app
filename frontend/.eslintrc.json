@@ -1,0 +1,10 @@
+{
+  "plugins": ["prettier"],
+  "extends": ["next/core-web-vitals", "plugin:react/recommended"],
+  "rules": {
+    "prettier/prettier": "error",
+    "react/react-in-jsx-scope": "off",
+    "react-hooks/rules-of-hooks": "off",
+    "react-hooks/exhaustive-deps": "off"
+  }
+}
