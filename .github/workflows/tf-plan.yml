@@ -1,0 +1,53 @@
+name: tf-plan
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'terraform/**'
+      - .github/workflows/tf-plan.yml # this file
+
+env:
+  AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_REGION: 'ap-northeast-1'
+  TF_VERSION: '1.6.0'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tf-plan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      id-token: write
+      contents: read
+      pull-requests: write
+      statuses: write
+    strategy:
+      fail-fast: false
+      matrix:
+        stage:
+          - dev/database
+    defaults:
+      run:
+        working-directory: ./terraform/environments/${{ matrix.stage }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+      - name: Check format
+        id: fmt
+        run: terraform fmt -check -recursive
+      - name: Init
+        run: terraform init -upgrade -no-color
+      - name: Check validate
+        run: terraform validate
+      - name: Plan
+        id: plan
+        run: terraform plan -no-color -input=false
